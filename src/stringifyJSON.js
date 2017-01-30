@@ -4,5 +4,19 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
+
+  var result;
+
+  var primative = function(value){
+    if(typeof value === 'string'){
+      return '"' + value + '"';
+    } else {
+      return String(value);
+    }
+  };
+
+  result = primative(obj);
+
+  return result;
+
 };
