@@ -31,9 +31,25 @@ var stringifyJSON = function(obj) {
     return result;
   };
 
+  var object = function(obj){
+    var container = [];
+    var result;
+
+    for(var property in obj){
+      if(typeof obj[property] !== 'function' && obj[property] !== undefined){
+        container.push('"' + property + '":' + stringifyJSON(obj[property]));
+      }
+    }
+    result = '{' + container.join() + '}';
+
+    return result;
+  };
+
   if(Array.isArray(obj)){
     result = array(obj);
-  } else {
+  } else if(typeof obj === 'object' && obj !== null){
+    result = object(obj);
+  }else {
     result = primative(obj);
   }
 
