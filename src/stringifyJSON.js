@@ -7,15 +7,35 @@ var stringifyJSON = function(obj) {
 
   var result;
 
-  var primative = function(value){
-    if(typeof value === 'string'){
-      return '"' + value + '"';
+  var primative = function(obj){
+    var result;
+
+    if(typeof obj === 'string'){
+      result = '"' + obj + '"';
     } else {
-      return String(value);
+      result = String(obj);
     }
+
+    return result;
   };
 
-  result = primative(obj);
+  var array = function(obj){
+    var container = [];
+    var result;
+
+    _.each(obj, function(item){
+      container.push(stringifyJSON(item));
+    });
+    result = '[' + container.join() + ']';
+
+    return result;
+  };
+
+  if(Array.isArray(obj)){
+    result = array(obj);
+  } else {
+    result = primative(obj);
+  }
 
   return result;
 
